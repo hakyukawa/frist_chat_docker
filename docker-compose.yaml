@@ -1,0 +1,27 @@
+services:
+  nodejs:
+    container_name: nodejs
+    build:
+      context: ./nodejs
+      dockerfile: ./Dockerfile
+    ports:
+      - ${NODE_PORT}:${NODE_PORT}
+    env_file:
+      - .env
+    working_dir: /usr/src/app
+    tty: true
+
+  mysql:
+    container_name: mysql
+    build:
+      context: ./mysql
+      dockerfile: ./Dockerfile
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    environment:
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASS}
+    tty: true
